@@ -20,9 +20,11 @@ class UsersAuthenticator extends AbstractLoginFormAuthenticator
     use TargetPathTrait;
 
     public const LOGIN_ROUTE = 'app_login';
+    private UrlGeneratorInterface $urlGenerator;
 
-    public function __construct(private UrlGeneratorInterface $urlGenerator)
+    public function __construct(UrlGeneratorInterface $urlGenerator)
     {
+        $this->urlGenerator = $urlGenerator;
     }
 
     public function authenticate(Request $request): Passport
@@ -49,6 +51,16 @@ class UsersAuthenticator extends AbstractLoginFormAuthenticator
         // For example:
         return new RedirectResponse($this->urlGenerator->generate('main'));
         // throw new \Exception('TODO: provide a valid redirect inside '.__FILE__);
+    }
+
+    /**
+     * @param UrlGeneratorInterface $urlGenerator
+     * @return UsersAuthenticator
+     */
+    public function setUrlGenerator(UrlGeneratorInterface $urlGenerator): UsersAuthenticator
+    {
+        $this->urlGenerator = $urlGenerator;
+        return $this;
     }
 
     protected function getLoginUrl(Request $request): string

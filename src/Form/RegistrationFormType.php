@@ -23,27 +23,33 @@ class RegistrationFormType extends AbstractType
             ->add('email', EmailType::class, [
                 'attr' => [
                     'class' => 'form-control'
-    ]])
+                ],'label' => 'E-mail'
+            ])
             ->add('lastname', TextType::class, [
                 'attr' => [
                     'class' => 'form-control'
-    ]])
+                ],'label' => 'Nom'
+            ])
             ->add('firstname', TextType::class, [
                 'attr' => [
                     'class' => 'form-control'
-    ]])
+                ],'label' => 'Prénom'
+            ])
             ->add('address', TextType::class, [
                 'attr' => [
                     'class' => 'form-control'
-    ]])
+                ],'label' => 'Adresse'
+            ])
             ->add('zipcode', TextType::class, [
                 'attr' => [
                     'class' => 'form-control'
-    ]])
+                ],'label' => 'Code postal'
+            ])
             ->add('city', TextType::class, [
                 'attr' => [
                     'class' => 'form-control'
-    ]])
+                ],'label' => 'Ville'
+            ])
             ->add('RGPDConsent', CheckboxType::class, [
                 'mapped' => false,
                 'constraints' => [
@@ -51,6 +57,7 @@ class RegistrationFormType extends AbstractType
                         'message' => 'You should agree to our terms.',
                     ]),
                 ],
+                'label' => 'En m\'inscrivant à ce site j\'accepte...'
             ])
             ->add('plainPassword', PasswordType::class, [
                 // instead of being set onto the object directly,
@@ -71,6 +78,7 @@ class RegistrationFormType extends AbstractType
                         'max' => 4096,
                     ]),
                 ],
+                'label' => 'Mot de passe'
             ])
         ;
     }
