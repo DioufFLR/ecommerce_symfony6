@@ -99,10 +99,9 @@
             "php bin/console d:d:d --force --if-exists",
             "php bin/console d:d:c",
             "php bin/console d:s:u --force --complete",
-            "php bin/console d:f:l --append"
+            "php bin/console d:f:l"
         ]
     },
-
     "conflict": {
         "symfony/symfony": "*"
     },
