@@ -21,6 +21,12 @@ class CategoriesFixtures extends Fixture
         $this->createCategory('Souris', $parent, $manager);
         $this->createCategory('Claviers', $parent, $manager);
 
+        $parent = $this->createCategory('Mode', null, $manager);
+
+        $this->createCategory('Homme', $parent, $manager);
+        $this->createCategory('Femme', $parent, $manager);
+        $this->createCategory('Enfant', $parent, $manager);
+
         $manager->flush();
     }
 
