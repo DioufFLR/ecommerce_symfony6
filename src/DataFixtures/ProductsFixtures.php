@@ -31,7 +31,7 @@ class ProductsFixtures extends Fixture
 
             $manager-> persist($product);
 
-//            $this->addReference('prod-' .$prod, $product);
+            $this->addReference('prod-' .$prod, $product);
         }
 
         $manager->flush();
