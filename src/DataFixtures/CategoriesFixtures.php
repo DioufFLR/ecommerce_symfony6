@@ -22,7 +22,6 @@ class CategoriesFixtures extends Fixture
         $this->createCategory('Ordinateurs portables', $parent, $manager);
         $this->createCategory('Écran', $parent, $manager);
         $this->createCategory('Souris', $parent, $manager);
-        $this->createCategory('Claviers', $parent, $manager);
 
         $parent = $this->createCategory('Mode', null, $manager);
 
