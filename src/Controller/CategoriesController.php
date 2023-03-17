@@ -2,7 +2,7 @@
 
 namespace App\Controller;
 
-use App\Entity\Products;
+use App\Entity\Categories;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -10,15 +10,9 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/categories', name: 'categories_')]
 class CategoriesController extends AbstractController
  {
-    #[Route('/', name: 'index')]
-    public function index(): Response
+    #[Route('/{slug}', name: 'list')]
+    public function list(Categories $category): Response
     {
-        return $this->render('products/index.html.twig');
-    }
-
-    #[Route('/{slug}', name: 'details')]
-    public function details(Products $product): Response
-    {
-        return $this->render('products/details.html.twig', compact('product'));
+        return $this->render('categories/list.html.twig', compact('category'));
     }
  }
