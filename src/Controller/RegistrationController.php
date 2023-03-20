@@ -37,6 +37,8 @@ class RegistrationController extends AbstractController
             $entityManager->flush();
             // do anything else you need here, like send an email
 
+            // On génère le JWT de l'utilisateur
+
             // On envoie un mail
             $mail->send(
                 'no-reply@monsite.net',
