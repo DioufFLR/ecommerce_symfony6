@@ -53,15 +53,13 @@ class RegistrationController extends AbstractController
             // On génère le token
             $token = $jwt->generate($header, $payload, $this->getParameter('app.jwtsecret'));
 
-            dd($token);
-
             // On envoie un mail
             $mail->send(
                 'no-reply@monsite.net',
                 $user->getEmail(),
                 'Activation de votre compte sur le site e-commerce',
                 'register',
-                compact('user')
+                compact('user', 'token')
             );
 
             return $userAuthenticator->authenticateUser(
@@ -75,4 +73,11 @@ class RegistrationController extends AbstractController
             'registrationForm' => $form->createView(),
         ]);
     }
+
+    #[Route('/verif/{token}', name: 'verify_user')]
+    public function verifyUser($token): Response
+    {
+        dd($token);
+    }
+
 }
