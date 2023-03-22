@@ -98,6 +98,6 @@ class JWTService
         $payload = $this->getPayload($token);
 
         // On régénère un token
-        $verifToken = $this->generate($header, $payload, $secret);
+        $verifToken = $this->generate($header, $payload, $secret, 0);
     }
 }
