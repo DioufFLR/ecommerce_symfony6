@@ -21,6 +21,26 @@ class ProductsRepository extends ServiceEntityRepository
         parent::__construct($registry, Products::class);
     }
 
+    public function findProductsPaginated(int $page, string $slug, int $limit = 6): array
+    {
+        $limit = abs($limit);
+
+        $result = [];
+
+        $query = $this->getEntityManager()->createQueryBuilder()
+            ->select('c', 'p')
+            ->from('App\Entity\Products', 'p')
+            ->join('p.categories', 'c')
+            ->where("c.slug = '$slug'")
+            ->setMaxResults($limit)
+            ->setFirstResult(($page * $limit) - $limit);
+
+
+        dd($query->getQuery()->getResult());
+
+        return $result;
+    }
+
     public function save(Products $entity, bool $flush = false): void
     {
         $this->getEntityManager()->persist($entity);
