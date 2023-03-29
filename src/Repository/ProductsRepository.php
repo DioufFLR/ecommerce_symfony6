@@ -39,7 +39,7 @@ class ProductsRepository extends ServiceEntityRepository
         $data = $paginator->getQuery()->getResult();
 
         // On vérifie qu'on a les données
-        if (empty($data)){
+        if (empty($data)) {
             return $result;
         }
 

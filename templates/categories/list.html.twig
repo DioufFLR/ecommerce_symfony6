@@ -21,7 +21,7 @@
             {% endfor %}
             {% set path = 'categories_list' %}
             {% set slug = category.slug %}
-            {% set pages = products.page %}
+            {% set pages = products.pages %}
             {% set currentPage = products.page %}
             {% include "_partials/_pagination.html.twig" %}
         </section>
