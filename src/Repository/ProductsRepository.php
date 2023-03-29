@@ -4,10 +4,10 @@ namespace App\Repository;
 
 use App\Entity\Products;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Tools\Pagination\Paginator;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<Products>
  *
  * @method Products|null find($id, $lockMode = null, $lockVersion = null)
  * @method Products|null findOneBy(array $criteria, array $orderBy = null)
@@ -29,14 +29,28 @@ class ProductsRepository extends ServiceEntityRepository
 
         $query = $this->getEntityManager()->createQueryBuilder()
             ->select('c', 'p')
-            ->from('App\Entity\Products', 'p')
+            ->from(Products::class, 'p')
             ->join('p.categories', 'c')
             ->where("c.slug = '$slug'")
             ->setMaxResults($limit)
             ->setFirstResult(($page * $limit) - $limit);
 
+        $paginator = new Paginator($query);
+        $data = $paginator->getQuery()->getResult();
 
-        dd($query->getQuery()->getResult());
+        // On vérifie qu'on a les données
+        if (empty($data)){
+            return $result;
+        }
+
+        // On calcule le nombre de pages
+        $pages = ceil($paginator->count() / $limit);
+
+        // On va remplir le tableau
+        $result['data'] = $data;
+        $result['pages'] = $pages;
+        $result['page'] = $page;
+        $result['limit'] = $limit;
 
         return $result;
     }
