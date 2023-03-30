@@ -4,7 +4,7 @@ namespace App\DataFixtures;
 
 use App\Entity\Categories;
 use Doctrine\Bundle\FixturesBundle\Fixture;
-//use Doctrine\ORM\Internal\Hydration\ObjectHydrator;
+use Doctrine\ORM\Internal\Hydration\ObjectHydrator;
 use Doctrine\Persistence\ObjectManager;
 use Symfony\Component\String\Slugger\SluggerInterface;
 
