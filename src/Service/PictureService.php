@@ -95,6 +95,19 @@ class PictureService
 
             $mini = $path . '/mini/' . $width . 'x' . $height . '-' . $fichier;
 
+            if (file_exists($mini)){
+                unlink($mini);
+                $success = true;
+            }
+
+            $original = $path . '/' . $fichier;
+
+            if (file_exists($original)) {
+                unlink($mini);
+                $success = true;
+            }
+            return $success;
         }
+        return false;
     }
 }

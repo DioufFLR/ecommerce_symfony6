@@ -2,8 +2,10 @@
 
 namespace App\Controller\Admin;
 
+use App\Entity\Images;
 use App\Entity\Products;
 use App\Form\ProductsFormType;
+use App\Service\PictureService;
 use Doctrine\ORM\EntityManagerInterface;
 use phpDocumentor\Reflection\Types\Mixed_;
 use Symfony\Component\HttpFoundation\Request;
@@ -11,6 +13,7 @@ use symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\String\Slugger\SluggerInterface;
+
 
 #[Route('/admin/produits', name: 'admin_products_')]
 class ProductsController extends AbstractController
@@ -21,7 +24,7 @@ class ProductsController extends AbstractController
         return $this->render('admin/products/index.html.twig');
     }
     #[Route('/ajout', name: 'add')]
-    public function add(Request $request, EntityManagerInterface $em, SluggerInterface $slugger): Response
+    public function add(Request $request, EntityManagerInterface $em, SluggerInterface $slugger, PictureService $pictureService): Response
     {
         $this->denyAccessUnlessGranted('ROLE_ADMIN');
 
@@ -36,6 +39,20 @@ class ProductsController extends AbstractController
 
         // On vérifie si le formulaire est soumis et valide
         if ($productForm->isSubmitted() && $productForm->isValid()){
+            // On récupère les images
+            $images = $productForm->get('images')->getData();
+            foreach ($images as $image){
+                // On définit le dossier de destination
+                $folder = 'products';
+
+                // On appelle le service d'ajout
+                $fichier = $pictureService->add($image, $folder, 300, 300);
+
+                $img = new Images();
+                $img->setName($fichier);
+                $product->addImage(($img));
+            }
+
             // On génère le slug
             $slug = $slugger->slug($product->getName());
             $product->setSlug($slug);
